@@ -36,7 +36,12 @@ namespace HangMan
                     Random random = new Random();
                     int wordNum = random.Next(0, readFile.Length);
                     string word = readFile[wordNum];
-                    correctGuess.CorrectGuessDisplay(word, 10);
+                    while(word.Length < 3)
+                    {
+                        wordNum = random.Next(0, readFile.Length);
+                        word = readFile[wordNum];
+                    }
+                    correctGuess.CorrectGuessDisplay(word.ToLower(), 10);
                 }
                 else if (numOfPlayers == 2)
                 {
@@ -55,7 +60,7 @@ namespace HangMan
                     Console.WriteLine("How many guesses do they get?(please enter a number): \n");
                     int numberOfLives = Convert.ToInt32(Console.ReadLine());
 
-                    correctGuess.CorrectGuessDisplay(word, numberOfLives);
+                    correctGuess.CorrectGuessDisplay(word.ToLower(), numberOfLives);
                 }
                 else
                 {

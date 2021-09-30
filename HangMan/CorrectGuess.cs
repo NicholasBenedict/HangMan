@@ -35,6 +35,9 @@ namespace HangMan
             while (holder != word && numberOfGuesses > 0)
             {
                 char guess = Console.ReadKey().KeyChar;
+                string guessHolder = guess.ToString().ToLower();
+                guess = Convert.ToChar(guessHolder);
+
                 Console.WriteLine();
                 if (word.Contains(guess))
                 {
