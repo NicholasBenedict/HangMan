@@ -11,20 +11,24 @@ namespace HangMan
         public void CorrectGuessDisplay(string word, int numOfLives)
         {
             Console.Clear();
-            word = word.Replace(" ", string.Empty);
             char[] wordToBeGuessed = new char[word.Length];
 
             int numberOfGuesses = numOfLives;
             string holder = "";
-            
+            char apostrophe = '\'';
+            char space = ' ';
 
             for (int i = 0; i < word.Length; i++)
             {
                 wordToBeGuessed[i] = '_';
             }
 
+            holder = CheckForLetter(apostrophe, word, wordToBeGuessed);
+            holder = CheckForLetter(space, word, wordToBeGuessed);
+
             holder = new string(wordToBeGuessed);
-            Console.WriteLine($"The word you are guessing is {holder}");
+            Console.WriteLine($"The word or phrase you are guessing is {holder}\n" +
+                $"The number of lives you have to guess it is {numberOfGuesses}");
             Console.Write("Please enter your guess: \n");
             Console.ForegroundColor = ConsoleColor.Cyan;
 
@@ -70,6 +74,23 @@ namespace HangMan
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.ReadLine();
             }
+        }
+
+        public string CheckForLetter(char itemToCheckFor, string word , char[] wordToBeGuessed)
+        {
+            string holder = "";
+            if (word.Contains(itemToCheckFor))
+            {
+                for (int i = 0; i < word.Length; i++)
+                {
+                    if (itemToCheckFor == word[i])
+                    {
+                        wordToBeGuessed[i] = itemToCheckFor;
+                        holder = new string(wordToBeGuessed);
+                    }
+                }
+            }
+            return holder;
         }
     }
 }

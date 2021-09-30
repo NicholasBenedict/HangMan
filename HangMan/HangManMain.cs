@@ -20,25 +20,47 @@ namespace HangMan
 
             Console.WriteLine("Welcome to HangMan \n");
             Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("One or Two Players (1 or 2): ");
-            int numOfPlayers = Convert.ToInt32(Console.ReadLine());
 
-            if (numOfPlayers == 1)
+
+            bool isRunning = true;
+
+            while (isRunning)
             {
-                Random random = new Random();
-                int wordNum = random.Next(0, readFile.Length);
-                string word = readFile[wordNum];
-                correctGuess.CorrectGuessDisplay(word, 10);
-            }
-            else
-            {
-                Console.WriteLine("Enter the word or words you want the other person to guess: \n");
-                Console.ForegroundColor = ConsoleColor.Green;
-                string word = Console.ReadLine();
-                Console.WriteLine("How many guesses do they get?(please enter a number): \n");
-                int numberOfLives = Convert.ToInt32(Console.ReadLine());
-                
-                correctGuess.CorrectGuessDisplay(word, numberOfLives);
+                Console.WriteLine("1. Play with one Player: \n" +
+                                  "2. Play with two Players \n" +
+                                  "3. Exit the game \n");
+
+                int numOfPlayers = Convert.ToInt32(Console.ReadLine());
+                if (numOfPlayers == 1)
+                {
+                    Random random = new Random();
+                    int wordNum = random.Next(0, readFile.Length);
+                    string word = readFile[wordNum];
+                    correctGuess.CorrectGuessDisplay(word, 10);
+                }
+                else if (numOfPlayers == 2)
+                {
+                    Console.WriteLine("Enter the word or words you want the other person to guess: \n");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    string word = null;
+                    while(true)
+                    {
+                        var key = System.Console.ReadKey(true);
+                        if(key.Key == ConsoleKey.Enter)
+                        {
+                            break;
+                        }
+                        word += key.KeyChar;
+                    }
+                    Console.WriteLine("How many guesses do they get?(please enter a number): \n");
+                    int numberOfLives = Convert.ToInt32(Console.ReadLine());
+
+                    correctGuess.CorrectGuessDisplay(word, numberOfLives);
+                }
+                else
+                {
+                    isRunning = false;
+                }
             }
 
         }
